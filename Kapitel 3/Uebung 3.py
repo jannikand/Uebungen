@@ -28,19 +28,28 @@ class Kreis(Figur):
       self.my = my
       self.r = r
       
-
    def umfang(self):
       return self.r*2*pi
    
    def __str__(self):
-      m = Punkt(self.mx,self.my)
-      return f"{self.name}, M = ({m}) r = {self.r}"
+      return f"{self.name}, M = ({self.mx}, {self.my}) r = {self.r}"
+   
+class Rechteck(Figur):
+   def __init__(self, sx, sy, zx, zy):
+      super().__init__("Rechteck")
+      self.sx = sx
+      self.sy = sy
+      self.zx = zx
+      self.zy = zy
+
+def umf
    
 
 p1 = Punkt(4,5)
 print(p1)
+
 p2 = Punkt(4,6)
-print()
+print(p2.dist(p1))
 
 f1 = Kreis(1,1,2)
 print(f1)
