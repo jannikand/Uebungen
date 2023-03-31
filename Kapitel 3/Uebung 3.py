@@ -6,10 +6,10 @@ class Punkt:
       self.y = y
 
    def dist(self, other):
-        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
+      return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
         
-   def __str___(self):
-      return f"{self.x},{self.y}"
+   def __str__(self):
+      return f"{self.x}, {self.y}"
 
 class Figur:
    def __init__(self, name):
@@ -37,8 +37,10 @@ class Kreis(Figur):
       return f"{self.name}, M = ({m}) r = {self.r}"
    
 
-pt = Punkt(4,5)
-print(pt)
+p1 = Punkt(4,5)
+print(p1)
+p2 = Punkt(4,6)
+print()
 
 f1 = Kreis(1,1,2)
 print(f1)

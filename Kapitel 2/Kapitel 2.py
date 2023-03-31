@@ -3,7 +3,7 @@ class Punkt:
         self.x = x
         self.y = y
         
-    def __str___(self):
+    def __str__(self):
         return f"{self.x},{self.y}"
     
 p1 = Punkt(2600000, 1200000)
