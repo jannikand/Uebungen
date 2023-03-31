@@ -1,6 +1,6 @@
 import math
 
-class figur:
+class figur:                        #parent class
     def __init__ (self, name):
         self.name=name
     def umfang(self):
@@ -19,9 +19,9 @@ class punkt (figur):
     def __str__ (self):
         return f"[{self.name}, x={self.x}, y={self.y}]"
     
-class kreis (figur):
+class kreis (figur):                #child class
     def __init__ (self,m,r):
-        super().__init__("kreis")
+        super().__init__("kreis")       #vererbung attribute parent class
         self.m=m
         self.r=r
         
