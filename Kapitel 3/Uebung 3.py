@@ -58,28 +58,40 @@ class Rechteck(Figur):
 class Dreieck(Figur):
    def __init__(self, ax, ay, bx, by, cx, cy):
       super().__init__('Dreieck')
-      self.ax = ax
-      self.ay = ay
-      self.bx = bx
-      self.by = by
-      self.cx = cx
-      self.cy = cy
-      
+      self.A = Punkt(ax,ay)
+      self.B = Punkt(bx,by)
+      self.C = Punkt(cx,cy)
+
 
    def umfang(self):
-      pa = Punkt(self.ax,self.ay)
-      pb = Punkt(self.bx,self.by)
-      pc = Punkt(self.cx,self.cy)
-      return pa.dist(pb) + pb.dist(pc) + pc.dist(pa)
+      return self.A.dist(self.B) + self.B.dist(self.A) + self.C.dist(self.A)
    
    def __str__(self):
-      return f"{self.name} A=({self.ax}, {self.ay}) B=({self.bx}, {self.by}) C=({self.cx}, {self.cy}))"
+      return f"{self.name} A=({self.A}) B=({self.B}) C=({self.C}))"
 
 
 class Polygon(Figur):
-   def __init__(self, ):
+   def __init__(self, *values):
       super().__init__('Polygon')
+      self.ecken = []
+      for i in range(0,len(values),2):
+         x,y=values[i], values[i+1]
+         self.ecken.append(Punkt(x,y))
 
+   def umfang(self):
+      umfang = 0
+      for i in range(len(self.ecken)):
+         x = (i+1)%len(self.ecken)
+         seite = self.ecken[i].dist(self.ecken[x])
+         umfang += seite
+      return umfang
+
+   def __str__(self):
+      str_ecken = ''
+      for i in range(len(self.ecken)):
+         str_ecken += f'({self.ecken[i]}) '
+      return f"{self.name} " + str_ecken
+   
 
 p1 = Punkt(4,5)
 print(p1)
@@ -98,3 +110,7 @@ print(f2)
 f3 = Dreieck(1,2,5,1,4,4)
 f3.umfang()
 print(f3)
+
+f4 = Polygon(1,2,5,1,4,4,2,7)
+f4.umfang()
+print(f4)
