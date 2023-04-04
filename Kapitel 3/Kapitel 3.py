@@ -21,7 +21,7 @@ class punkt (figur):
     
 class kreis (figur):                #child class
     def __init__ (self,m,r):
-        super().__init__("kreis")       #vererbung attribute parent class
+        super().__init__(name='Kreis')       #vererbung attribute parent class
         self.m=m
         self.r=r
         

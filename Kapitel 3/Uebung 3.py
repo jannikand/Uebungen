@@ -93,6 +93,19 @@ class Polygon(Figur):
       return f"{self.name} " + str_ecken
    
 
+class Polygon_neu(Figur):
+   def __init__(self, punktliste):
+      super().__init__('Polygon')
+      self.pl = punktliste
+   
+   
+
+   def __str__(self):
+      s = f'{self.name}: '
+      for punkt in self.pl:
+         s += f'{punkt} '
+      return s
+
 p1 = Punkt(4,5)
 print(p1)
 
@@ -114,3 +127,7 @@ print(f3)
 f4 = Polygon(1,2,5,1,4,4,2,7)
 f4.umfang()
 print(f4)
+
+polygonliste = [Punkt(1,1), Punkt(2,4), Punkt(3,3.5), Punkt(4,4), Punkt(4,1), Punkt(1,1)]
+f5 = Polygon_neu(polygonliste)
+print(f5)
