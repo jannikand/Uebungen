@@ -19,8 +19,8 @@ class MyWindow(QMainWindow):
         self.plzLineEdit = QLineEdit()
         self.ortLineEdit = QLineEdit()
 
-        landComboBox = QComboBox()
-        landComboBox.addItems(["Schweiz", "Deutschland", "Österreich"])
+        self.landComboBox = QComboBox()
+        self.landComboBox.addItems(["Schweiz", "Deutschland", "Österreich"])
 
         save_button = QPushButton('Save')
 
@@ -31,7 +31,7 @@ class MyWindow(QMainWindow):
         layout.addRow('Adresse:', self.adresseLineEdit)
         layout.addRow('Postleitzahl:', self.plzLineEdit)
         layout.addRow('Ort:', self.ortLineEdit)
-        layout.addRow('Land:', landComboBox)
+        layout.addRow('Land:', self.landComboBox)
         layout.addRow(save_button)
 
         # Zentrales Widget erstellen und layout hinzufügen
@@ -51,10 +51,9 @@ class MyWindow(QMainWindow):
         save_menu = QAction("Save", self)
         quit = QAction("Quit", self)
 
-        quit.setMenuRole(QAction.QuitRole)   # Rolle "beenden" zuweisen, nur für MacOS relevant
-
         filemenu.addAction(save_menu)
         filemenu.addAction(quit)
+
 
         # CONNECTS
         save_button.clicked.connect(self.save_clicked)
@@ -67,10 +66,21 @@ class MyWindow(QMainWindow):
 
 
     def save_clicked(self):
+        #Variablen abgreifen
         vorname = self.vornameLineEdit.text()
         name = self.nameLineEdit.text()
         geburtstag = self.geburtstagDateEdit.text()
-        print(vorname, name, geburtstag)    
+        adresse = self.adresseLineEdit.text()
+        plz = self.plzLineEdit.text()
+        ort = self.ortLineEdit.text()
+        land = self.landComboBox.currentText()
+
+        #Datei schreiben
+        file = open("output.txt", "w")
+        file.write(f'{vorname},{name},{geburtstag},{adresse},{plz},{ort},{land}')
+        file.close()
+
+        print(f'{vorname},{name},{geburtstag},{adresse},{plz},{ort},{land}')
 
 def main():
     app = QApplication(sys.argv)  # Qt Applikation erstellen
