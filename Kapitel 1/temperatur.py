@@ -16,7 +16,7 @@ class Temperatur:
     celsius = property(setTemperatur, getTemperatur)
     
 
-basel = Temperatur()
+basel = Temperatur(14)
 basel.setTemperatur(12)
 print(basel.getTemperatur())
 

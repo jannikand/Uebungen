@@ -89,5 +89,8 @@ class wgs84coord:
             self._latitude = value
 
 k2 = wgs84coord(90,45)
-k2.longitude
-k2.latitude
+print(k2.longitude)
+print(k2.latitude)
+
+k2.longitude = -190
+print(k2.longitude)
