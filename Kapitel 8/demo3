@@ -1,0 +1,46 @@
+from PyQt5.QtWidgets import *
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import numpy as np
+
+class Window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        layout = QVBoxLayout()
+
+        figure = plt.figure(figsize=(16,9))
+        self.canvas = FigureCanvas(figure)
+
+        self.x = QLineEdit("np.linspace(0, np.pi, 20)")
+        self.y = QLineEdit("np.sin(x)")
+        self.button = QPushButton("Plot")
+
+        self.button.clicked.connect(self.plot)
+
+        layout.addWidget(self.canvas)
+        layout.addWidget(self.x)
+        layout.addWidget(self.y)
+        layout.addWidget(self.button)
+
+        center = QWidget()
+        center.setLayout(layout)
+
+        self.setCentralWidget(center)
+        self.show()
+
+    def plot(self):
+        plt.clf()
+        try:
+            x = eval(self.x.text())
+            y = eval(self.y.text())
+        except:
+            QMessageBox.critical(self, "Error", "Please specify x and y")
+
+        plt.plot(x, y, "ro-")
+        plt.axis("equal")
+
+        self.canvas.draw()
+
+app = QApplication([])
+window = Window()
+app.exec()

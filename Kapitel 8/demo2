@@ -1,0 +1,51 @@
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.uic import *
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import numpy as np
+
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        loadUi("Kapitel 8/gui.ui", self)
+        self.show()
+        
+        figure = plt.figure(figsize=(16, 9))
+        self.canvas = FigureCanvas(figure)
+        self.verticalLayout.removeWidget(self.widget)
+        self.verticalLayout.insertWidget(0,self.canvas)
+
+        self.slider.valueChanged.connect(self.slidermoved)
+        self.button1.clicked.connect(self.button1click)
+        self.button2.clicked.connect(self.button2click)
+
+    def button1click(self):
+        plt.clf()
+        x = np.linspace(0, np.pi, 20)
+        y = np.sin(x)
+        plt.plot(x, y, "ro-")
+        plt.axis("equal")
+
+        self.canvas.draw()
+
+    def button2click(self):
+        plt.clf()
+        x = np.linspace(0, np.pi, 20)
+        y = np.cos(x)
+        plt.plot(x, y, "ko-")
+        plt.axis("equal")
+
+        self.canvas.draw()
+
+    def slidermoved(self, value):
+        plt.clf()
+        x = np.linspace(0, np.pi, value)
+        y = np.cos(x)
+        plt.plot(x, y, "bo-")
+        plt.axis("equal")
+        self.canvas.draw()
+
+app = QApplication([])
+window = MyWindow()
+app.exec()

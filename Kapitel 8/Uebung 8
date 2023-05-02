@@ -1,0 +1,38 @@
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.uic import *
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import numpy as np
+
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        loadUi("Kapitel 8/Uebung 8.ui", self)
+        self.show()
+        
+        figure = plt.figure(figsize=(16, 9))
+        self.canvas = FigureCanvas(figure)
+        self.verticalLayout.removeWidget(self.widget)
+        self.verticalLayout.insertWidget(0,self.canvas)
+
+        self.buttonplot.clicked.connect(self.clickplot)
+
+    def clickplot(self):
+        plt.clf()
+        f = np.poly1d(eval(self.koeff.text()))
+        x = np.linspace(self.minbox.value(),self.maxbox.value(),self.punktebox.value())
+        y = f(x)
+
+        colors = ['k','b','g','r','c','m','y']
+
+        plt.plot(x,y,f'{colors[self.farbebox.currentIndex()]}o-')
+        self.canvas.draw()
+
+
+
+
+
+app = QApplication([])
+window = MyWindow()
+app.exec()
